@@ -2,9 +2,9 @@ const urlParams = new URLSearchParams(window.location.search);
 const username = urlParams.get('username');
 const deleteUser= document.getElementById('delete')
 console.log(username);
-deleteUser.addEventListener('click',(e)=>{
-    fetch('https://localhost:3000/delete', {
-  method: 'POST',
+const deleteMe=()=>{
+  fetch(`https://it-fu6m.onrender.com/delete/${username}`, {
+  method: 'DELETE',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -15,8 +15,11 @@ deleteUser.addEventListener('click',(e)=>{
       throw new Error('Failed to delete user');
     }
     console.log('User deleted successfully');
+    alert(`user : ${username} deteted successfully `)
+    location.href="./login.html" ;
   })
   .catch(error => {
     console.error('Error deleting user:', error);
   });
-})
+   
+}

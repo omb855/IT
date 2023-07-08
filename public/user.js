@@ -63,6 +63,9 @@ function fetchUserPosts() {
   <div class="comments">
     ${getCommentsHTML(post.comments)}
   </div>
+  <button class="Delete" >
+        Delete
+  </button>    
   <hr>
 </div>
 
@@ -79,6 +82,10 @@ function fetchUserPosts() {
         });
 
         // Event listener for comment button
+        const Deletebtn=postElement.querySelector('.Delete')
+        Deletebtn.addEventListener('click',async()=>{
+          deletePost(post._id);
+        })
         const commentBtn = postElement.querySelector('.commentBtn');
         commentBtn.addEventListener('click', () => {
           const comment = prompt('Enter your comment:');
@@ -249,5 +256,27 @@ function getCommentsHTML(comments) {
 // }
 
 // Fetch and display user's posts on page load
+const deletePost= async(postId)=>{
+  fetch(`https://it-fu6m.onrender.com/posts/${postId}`, {
+  method: 'DELETE',
+})
+  .then(response => {
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error('Failed to delete post');
+    }
+  })
+  .then(data => {
+    alert('Post deleted successfully');
+    location.reload();
+    // Perform any additional actions or UI updates as needed
+  })
+  .catch(error => {
+    console.error('Error deleting post:', error);
+    alert('Failed to delete post');
+    // Handle any network errors or exceptions
+  });
+}
 fetchUserPosts();
 allpost()
