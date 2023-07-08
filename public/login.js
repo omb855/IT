@@ -5,7 +5,7 @@ document.getElementById('login-form').addEventListener('submit', (event) => {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     window.myApp.user=username;
-    fetch('https://it-fu6m.onrender.com/login', {
+    fetch('https://shadow-web.onrender.com/login', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password }),

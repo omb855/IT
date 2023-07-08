@@ -181,21 +181,25 @@
 
     <!-- <h1>Shadow Web</h1> -->
   </header>
-  <nav>
-    <div id="home"><a href="#">HOME</a></div>
-    <div id="allpost"><a href="#">Trending</a></div>
-    <a href="#">Groups</a>
-    <div id="setting">Settings</a>
-    <a href="#">Contact Us</a>
-    <a href="aboutus.html">About</a>
-    <a href="login.html" class="button">Logout</a>
+  <nav style="background-color: #010536;">
+    <a id="trendPage" style="padding: 0px;"><img src="logo.png" alt="" style="height: 55px; padding: 0px;"></a>
+    <div id="home"><a href="#">User</a></div>
+    <a id="setting">Settings</a>
+    
+    <a href="aboutus.html">About Us</a>
+    
   </nav>
   <main>
-    <div style="
-    display: flex;
-">
-    <div class="user div1" style="
-    margin: 2rem;
+    <div>
+    <div  
+
+>
+    <div id="user" class="div1" style="
+    margin: 2rem; 
+    background-color: #888;
+    border-radius: 4px;
+    width: fit-content;
+    padding: 20px;
 ">
       <h3 class="userName" id="username"></h3>
       <form class="form" id="createPostForm" style="display: block;">
@@ -216,14 +220,16 @@
     width: 55%;
     margin-top: 2rem;
 ">
-    <div><h1>My post</h1></div>
-    <div id="userPosts" >
+    <div id="UserPage" style="padding: 10px;"><h1>My post</h1><div id="userPosts" ></div>
+    
 </div>
 </div>
   </div>
+  </div>
+  <div id="Trending" style="padding:10px;">
     <h1>All post</h1>
     <div id="postsContainer"></div>
-
+</div>
 
   </main>
   <br>
@@ -232,41 +238,7 @@
   <br>
   <br>
 
-  <footer>
-    <div class="section">
-      <h3><b>FAQ</b></h3>
-      <ul>
-        <li><a href="Are_the_users_safe.html">Are the users safe?</a></li>
-      </ul>
-    </div>
 
-    <div class="section">
-      <h3><b>User Agreements</b></h3>
-      <ul>
-        <li><a href="Terms_of_use.html">Terms of use</a></li>
-      </ul>
-    </div>
-
-    </div>
-
-    <div class="section">
-      <h3><b>Privacy Policy</b></h3>
-      <ul>
-
-      </ul>
-    </div>
-
-
-    <div class="section">
-      <h3><b>Queries? Our Founders:</b></h3>
-      <ul>
-        <li><a href="mailto:chikudhoke1432@gmail.com">Harshal</a></li>
-        <li><a href="mailto:rudra999tomar@gmail.com">Rudraksh</a></li>
-        <li><a href="mailto:prashilmude72@gmail.com">Prashil</a></li>
-        <li><a href="mailto:ombilariya@gmail.com">Om</a></li>
-      </ul>
-    </div>
-  </footer>
   <script src="user.js"></script>
   <script src="allpost.js"></script>
 </body>

@@ -1,15 +1,24 @@
 const usernameElement = document.getElementById('username');
 const createPostForm = document.getElementById('createPostForm');
 const userPostsContainer = document.getElementById('userPosts');
-const trending = document.getElementsByClassName('div1');
+const trending = document.getElementsByClassName('.div1');
 const setting=document.getElementById('setting');
-
-// Get username from URL parameter
-
+const home = document.getElementById('home');
+const tred = document.getElementById('Trending')
+const tredLink = document.getElementById('trendPage');
+const useLink = document.getElementById('UserPage')
+tred.style.display="none";
 const urlParams = new URLSearchParams(window.location.search);
 const username = urlParams.get('username');
 usernameElement.textContent = username;
-
+tredLink.addEventListener('click',()=>{
+  tred.style.display="block";
+  useLink.style.display="none";
+})
+home.addEventListener('click',()=>{
+  tred.style.display="none";
+  useLink.style.display="block";
+})
 // Event listener for create post form submission
 setting.addEventListener('click',(e)=>{
   location.href = `setting.html?username=${username}`;
@@ -21,7 +30,7 @@ createPostForm.addEventListener('submit', (e) => {
   const post = document.getElementById('post').value;
 
   // Send post data to the server
-  fetch('https://it-fu6m.onrender.com/posts/create', {
+  fetch('https://shadow-web.onrender.com/posts/create', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -44,7 +53,7 @@ createPostForm.addEventListener('submit', (e) => {
 });
 
 function fetchUserPosts() {
-  fetch(`https://it-fu6m.onrender.com/posts/user/${username}`)
+  fetch(`https://shadow-web.onrender.com/posts/user/${username}`)
     .then((response) => response.json())
     .then((data) => {
       userPostsContainer.innerHTML = '';
@@ -61,6 +70,7 @@ function fetchUserPosts() {
   <button class="likeBtn">Like (${post.likes})</button>
   <button class="commentBtn">Comment</button>
   <div class="comments">
+  ${console.log(post)}
     ${getCommentsHTML(post.comments)}
   </div>
   <button class="Delete" >
@@ -102,18 +112,16 @@ function fetchUserPosts() {
 
 // Function to generate HTML for comments
 function getCommentsHTML(comments) {
-
   let html = '';
   comments.forEach((comment) => {
-    console.log(comment.comment)
-    html += `<p>${comment.comment}</p>`;
+    html += `<p>${comment.user.username}: ${comment.comment}</p>`;
   });
   return html;
 }
 // Function to like a post
 function likePost(postId) {
   const user = username;
-  fetch(`https://it-fu6m.onrender.com/posts/like/${postId}`, {
+  fetch(`https://shadow-web.onrender.com/posts/like/${postId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -135,7 +143,7 @@ function likePost(postId) {
 // Function to add a comment to a post
 function addComment(postId, comment) {
   const user = username;
-  fetch(`https://it-fu6m.onrender.com/posts/comment/${postId}`, {
+  fetch(`https://shadow-web.onrender.com/posts/comment/${postId}`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -157,7 +165,7 @@ const postsContainer = document.getElementById('postsContainer');
 
 // Fetch all posts
 function allpost() {
-  fetch('https://it-fu6m.onrender.com/posts/all')
+  fetch('https://shadow-web.onrender.com/posts/all')
     .then((response) => response.json())
     .then((posts) => {
       postsContainer.innerHTML = '';
@@ -214,50 +222,50 @@ function getCommentsHTML(comments) {
 }
 
 // Function to like a post
-// function likePost(postId) {
-//   const user = username;
-//   fetch(`http://127.0.0.1:3000/posts/like/${postId}`, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify({ user }),
-//   })
-//     .then((response) => response.json())
-//     .then((data) => {
-//       console.log(data);
-//       // Refresh user posts
-//       fetchUserPosts();
-//     })
-//     .catch((error) => {
-//       console.error('Error:', error);
-//     });
-// }
+function likePost(postId) {
+  const user = username;
+  fetch(`https://shadow-web.onrender.com/posts/like/${postId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ user }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      // Refresh user posts
+      fetchUserPosts();
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+}
 
-// // Function to add a comment to a post
-// function addComment(postId, comment) {
-//   const user = username;
-//   fetch(`http://127.0.0.1:3000/posts/comment/${postId}`, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify({ user, comment }),
-//   })
-//     .then((response) => response.json())
-//     .then((data) => {
-//       console.log(data);
-//       // Refresh user posts
-//       fetchUserPosts();
-//     })
-//     .catch((error) => {
-//       console.error('Error:', error);
-//     });
-// }
+// Function to add a comment to a post
+function addComment(postId, comment) {
+  const user = username;
+  fetch(`https://shadow-web.onrender.com/posts/comment/${postId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ user, comment }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      // Refresh user posts
+      fetchUserPosts();
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+}
 
 // Fetch and display user's posts on page load
 const deletePost= async(postId)=>{
-  fetch(`https://it-fu6m.onrender.com/posts/${postId}`, {
+  fetch(`https://shadow-web.onrender.com/posts/${postId}`, {
   method: 'DELETE',
 })
   .then(response => {

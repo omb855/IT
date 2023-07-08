@@ -3,7 +3,7 @@ const username = urlParams.get('username');
 const deleteUser= document.getElementById('delete')
 console.log(username);
 const deleteMe=()=>{
-  fetch(`https://it-fu6m.onrender.com/delete/${username}`, {
+  fetch(`https://shadow-web.onrender.com/delete/${username}`, {
   method: 'DELETE',
   headers: {
     'Content-Type': 'application/json',

@@ -1,6 +1,4 @@
-* {
-    /* margin: 0;
-    padding: 0; */
+* { 
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
 }
@@ -32,8 +30,10 @@ header h1 {
 
 nav {
     
-    background: linear-gradient(to left, #305a61f7, #334155);
     overflow: hidden;
+    height: 70px;
+    font-weight: 00;
+    font-size: x-large;
     
 }
 
