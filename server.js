@@ -23,7 +23,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://om1234:om1234@cluster0.bjoglyj.mongodb.net/', {
+mongoose.connect('mongodb+srv://om12:om12@cluster0.8uwft4y.mongodb.net/', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
