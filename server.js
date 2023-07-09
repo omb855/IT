@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(cors());
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://om12:om12@cluster0.8uwft4y.mongodb.net/final', {
+mongoose.connect('mongodb+srv://ITproject:ITproject@cluster0.bjoglyj.mongodb.net/', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
