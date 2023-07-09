@@ -6,24 +6,11 @@ import bcrypt from 'bcrypt';
 import cors from 'cors';
 
 const app = express();
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  next();
-});
-
-const corsOptions = {
-  origin: '*',
-  methods: ['GET', 'POST','DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true
-};
-app.use(cors(corsOptions));
 app.use(express.json());
+app.use(cors());
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://om12:om12@cluster0.8uwft4y.mongodb.net/', {
+mongoose.connect('mongodb+srv://ITproject:ITproject@cluster0.bjoglyj.mongodb.net/', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -64,7 +51,6 @@ const Like = mongoose.model('Like', likeSchema);
 const Comment = mongoose.model('Comment', commentSchema);
 
 // Registration
-
 app.post('/register', async (req, res) => {
   const { username, password } = req.body;
 
@@ -74,7 +60,7 @@ app.post('/register', async (req, res) => {
     await newUser.save();
     res.status(201).json({ message: 'User registered successfully' });
   } catch (err) {
-    res.status(500).json({ message: 'Failed to register user', err });
+    res.status(500).json({ message: 'Failed to register user' });
   }
 });
 
@@ -100,6 +86,8 @@ app.post('/login', async (req, res) => {
     res.status(500).json({ message: 'Failed to login' });
   }
 });
+
+// Delete a post
 app.delete('/posts/:postId', async (req, res) => {
   const { postId } = req.params;
 
@@ -121,6 +109,7 @@ app.delete('/posts/:postId', async (req, res) => {
     res.status(500).json({ message: 'Failed to delete post' });
   }
 });
+
 // Create a new post
 app.post('/posts/create', async (req, res) => {
   const { post, user, topic } = req.body;
@@ -137,12 +126,11 @@ app.post('/posts/create', async (req, res) => {
     const savedPost = await newPost.save();
     res.status(200).json({ message: 'Post created successfully', post: savedPost });
   } catch (error) {
-    res.status(500).json({ message: 'Failed to create post', error });
+    res.status(500).json({ message: 'Failed to create post' });
   }
 });
 
-// Like a post
-// Like a post
+// Like or unlike a post
 app.post('/posts/like/:postId', async (req, res) => {
   const { postId } = req.params;
   const { user } = req.body;
@@ -211,7 +199,13 @@ app.get('/posts/all', async (req, res) => {
   try {
     const posts = await Post.find()
       .populate('user', 'username')
-      .populate('comments', 'comment');
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'user',
+          select: 'username'
+        }
+      });
 
     res.status(200).json(posts);
   } catch (err) {
@@ -219,6 +213,8 @@ app.get('/posts/all', async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch posts' });
   }
 });
+
+// Delete a user
 app.delete('/delete/:username', async (req, res) => {
   const { username } = req.params;
 
@@ -248,9 +244,15 @@ app.get('/posts/user/:username', async (req, res) => {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    const posts = await Post.find({ user: user._id })
+    const posts = await Post.find({user: user._id})
       .populate('user', 'username')
-      .populate('comments', 'comment');
+      .populate({
+        path: 'comments',
+        populate: {
+          path: 'user',
+          select: 'username'
+        }
+      });
 
     res.status(200).json(posts);
   } catch (error) {
@@ -258,6 +260,24 @@ app.get('/posts/user/:username', async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch user posts' });
   }
 });
+// Get user by ID
+app.get('/user/:userId', async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to fetch user' });
+  }
+});
+
+
 
 // Start the server
 app.listen(3000, () => {

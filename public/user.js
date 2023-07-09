@@ -110,14 +110,7 @@ function fetchUserPosts() {
     });
 }
 
-// Function to generate HTML for comments
-function getCommentsHTML(comments) {
-  let html = '';
-  comments.forEach((comment) => {
-    html += `<p>${comment.user.username}: ${comment.comment}</p>`;
-  });
-  return html;
-}
+// Function to generate HTML for comment
 // Function to like a post
 function likePost(postId) {
   const user = username;
@@ -216,7 +209,7 @@ function allpost() {
 function getCommentsHTML(comments) {
   let html = '';
   comments.forEach((comment) => {
-    html += `<p>${comment.comment}</p>`;
+    html += `<p><span>${comment.user.username}:</span> ${comment.comment}</p>`;
   });
   return html;
 }

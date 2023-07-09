@@ -42,7 +42,7 @@ nav a {
     padding: 20px;
     text-align: center;
     float: left;
-    color: white;
+    color: rgb(255, 255, 255);
 }
 
 .button {
@@ -202,6 +202,9 @@ video {
 
 iframe {
     height: 75vh;
+}
+#trendPage{
+  height: 40px;
 }
 
 img {
