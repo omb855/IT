@@ -156,7 +156,7 @@ app.post('/posts/like/:postId', async (req, res) => {
       post.likes++;
     }
     if(existingLike<0){
-      post.likes==0;
+      post.likes=0;
     }
 
     await post.save();
