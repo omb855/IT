@@ -194,7 +194,7 @@ function allpost() {
         // Event listener for comment button
         const commentBtn = postElement.querySelector('.commentBtn');
         commentBtn.addEventListener('click', () => {
-          const postId = commentBtn.dataset.postid;
+          const postId = post._id;
           const comment = prompt('Enter your comment:');
           if (comment) {
             addComment(postId, comment);
